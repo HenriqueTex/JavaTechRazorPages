@@ -50,10 +50,11 @@ namespace JavaTechPages.Pages.Products
 
             if (Product != null)
             {
-                _context.Products.Remove(Product);
+                Product.Excluded=1;
+                _context.Products.Update(Product);
                 await _context.SaveChangesAsync();
             }
-
+            TempData["success"] = "Product delete sucess";
             return RedirectToPage("./Index");
         }
     }

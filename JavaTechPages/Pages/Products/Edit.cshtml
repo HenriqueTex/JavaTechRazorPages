@@ -21,12 +21,6 @@
                 <span asp-validation-for="Product.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <img class="card-img-top" src="@("~/Image/"+Model.Product.ProductImage.ImageName)" asp-append-version="true"width="200px" height="250px">
-                <label asp-for="Product.ProductImage.ImageFile" class="control-label"></label>
-                <input asp-for="Product.ProductImage.ImageFile" accept="image/" />
-                <span asp-validation-for="Product.ProductImage.ImageFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

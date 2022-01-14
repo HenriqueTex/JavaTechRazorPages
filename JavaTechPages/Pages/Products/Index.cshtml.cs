@@ -14,17 +14,18 @@ namespace JavaTechPages.Pages.Products
     public class IndexModel : PageModel
     {
         private readonly JavaTechPages.Data.ApplicationDbContext _context;
+        public IList<Product> Product { get; set; }
+        public IList<ProductImage> ProductImages { get; set; }
 
         public IndexModel(JavaTechPages.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<Product> Product { get; set; }
-        public IList<ProductImage> ProductImages{ get;set; }
+        
         public async Task OnGetAsync()
         {
-            Product = await _context.Products.ToListAsync();
+            Product = await _context.Products.Where(p=>p.Excluded==0).ToListAsync();
             ProductImages = await _context.ProductImages.ToListAsync();
 
         }

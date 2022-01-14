@@ -50,9 +50,9 @@ namespace JavaTechPages.Pages.Products
             {
                 return Page();
             }
-
+            //Tem que alterar a imagem aqui, Talvez deixar pra editar imagem depois.
             _context.Attach(Product).State = EntityState.Modified;
-
+            //_context.Attach(ProductImage).State = EntityState.Modified;
             try
             {
                 await _context.SaveChangesAsync();
@@ -68,7 +68,7 @@ namespace JavaTechPages.Pages.Products
                     throw;
                 }
             }
-
+            TempData["success"] = "Product Edit sucess";
             return RedirectToPage("./Index");
         }
 

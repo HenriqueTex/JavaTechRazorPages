@@ -36,6 +36,16 @@ namespace JavaTechPages.Pages.Products
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            //Add Custom Validations
+            if (_context.Products.Where(p => p.Name == Product.Name).Count() > 0)
+            {
+                ModelState.AddModelError("Product.Name", "A product with that name already exist");
+            }
+            if (ProductImage.ImageFile==null)
+            {
+                ModelState.AddModelError("ProductImage.ImageFile", "Product image is required");
+            }
+            
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -62,6 +72,7 @@ namespace JavaTechPages.Pages.Products
             _context.Products.Add(Product);            
             await _context.SaveChangesAsync();
 
+            TempData["success"] = "Product Add sucess";
             return RedirectToPage("./Index");
         }
     }
