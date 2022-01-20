@@ -12,13 +12,14 @@ namespace JavaTechPages.Models
         }
 
         [Key]
+        [Display(Name ="Product")]
         public int Id { get; set; }
         
-        [DisplayName("Produto")]
+        [DisplayName("Product")]
         [Required,MinLength(3)]
         public string? Name { get; set; }
         
-        [DisplayName("Quantidade")]
+        [DisplayName("Quantity")]
         public int? Quantity { get; set; }
 
         public DateTime RegisterDate { get; set; }
@@ -28,5 +29,7 @@ namespace JavaTechPages.Models
         
         public virtual ProductImage? ProductImage { get; set; }
         
+        public virtual List<ShippingProduct>? ShippingProduct { get; set; }
+
     }
 }

@@ -12,5 +12,7 @@ namespace JavaTechPages.Data
         }
         public DbSet<JavaTechPages.Models.Product> Products { get; set; }
         public DbSet<JavaTechPages.Models.ProductImage> ProductImages { get; set; }
+        public DbSet<JavaTechPages.Models.Shipping> Shippings { get; set; }
+        public DbSet<JavaTechPages.Models.ShippingProduct> ShippingProducts { get; set; }
     }
 }

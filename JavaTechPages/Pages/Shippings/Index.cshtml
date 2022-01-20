@@ -1,0 +1,71 @@
+﻿@page
+@model JavaTechPages.Pages.Shippings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <form method="post">
+        <input type="submit" value="Create shipping" class="btn btn-primary" />
+    </form>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipping[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipping[0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipping[0].dateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipping[0].Finished)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Shipping)
+        {
+            
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateTime)
+                </td>
+
+                @if(@item.Finished==true)
+                {
+                <td>
+                    Finished
+                </td>
+                }
+                else
+                {
+                <td>
+                    Open
+                </td>
+                }
+                
+                <td>
+                    <a asp-page="../ShippingProducts/Create" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

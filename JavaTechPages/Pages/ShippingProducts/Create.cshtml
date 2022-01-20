@@ -1,0 +1,88 @@
+﻿@page
+@model JavaTechPages.Pages.ShippingProducts.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Add product from shipping</h1>
+
+<form method="post">
+    
+    <input hidden  asp-for="@Model.ShippingProduct.ShippingId" />
+    <table class="table">
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+        @foreach (var item in Model.ShippingProducts)
+        {
+            <tr>
+                <th>@item.Product.Name</th>
+                <th>@item.Quantity</th>
+            </tr>
+        }
+        <tr>
+            <td contenteditable="true">
+                @*<label asp-for="ShippingProduct.ProductId" class="control-label"></label>*@
+                <select asp-for="ShippingProduct.ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
+            </td>
+            <td>
+                 @*<label asp-for="ShippingProduct.Quantity" class="control-label"></label>*@
+                <input asp-for="ShippingProduct.Quantity" class="form-control" />
+                <span asp-validation-for="ShippingProduct.Quantity" class="text-danger"></span>
+            </td>
+        </tr>
+        
+    </table>
+    <input type="submit" value="Add product" class="btn btn-primary" />
+    
+</form>
+
+@*<div>
+    <a asp-page="../Shippings/Index">Back to List</a>
+</div>
+*@
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
+
+@*
+    <h1>Create</h1>
+
+    <h4>ShippingProduct</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+    <label asp-for="ShippingProduct.Quantity" class="control-label"></label>
+    <input asp-for="ShippingProduct.Quantity" class="form-control" />
+    <span asp-validation-for="ShippingProduct.Quantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="ShippingProduct.ShippingId" class="control-label"></label>
+    <select asp-for="ShippingProduct.ShippingId" class ="form-control" asp-items="ViewBag.ShippingId"></select>
+    </div>
+    <div class="form-group">
+    <label asp-for="ShippingProduct.ProductId" class="control-label"></label>
+    <select asp-for="ShippingProduct.ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+    </form>
+    </div>
+    </div>
+
+    <div>
+    <a asp-page="../Shippings/Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

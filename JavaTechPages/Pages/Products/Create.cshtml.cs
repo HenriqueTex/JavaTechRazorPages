@@ -36,6 +36,7 @@ namespace JavaTechPages.Pages.Products
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            
             //Add Custom Validations
             if (_context.Products.Where(p => p.Name == Product.Name).Count() > 0)
             {
