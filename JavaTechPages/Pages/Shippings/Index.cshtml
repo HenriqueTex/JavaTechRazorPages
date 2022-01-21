@@ -57,7 +57,7 @@
                 @if (@shipping.Finished == true)
                 {
                     <td>
-                        Finished
+                        Closed
                     </td>
                 }
                 else
@@ -68,13 +68,13 @@
                 }
 
                 <td>
+                    @*|<a asp-page="./Edit" asp-route-id="@shipping.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@shipping.Id">Details</a> |*@
+                    <a asp-page="./Delete" asp-route-id="@shipping.Id">Details</a>
                     @if (shipping.Finished == false)
                     {
                         <a asp-page="../ShippingProducts/Create" asp-route-id="@shipping.Id">Add Products</a>
                     }
-                    |<a asp-page="./Edit" asp-route-id="@shipping.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@shipping.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@shipping.Id">Delete</a>
                 </td>
             </tr>
         }
