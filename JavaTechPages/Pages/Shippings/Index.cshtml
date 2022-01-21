@@ -5,6 +5,14 @@
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+@if (TempData["success"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["success"]');    
+    </script>
+}
 
 <h1>Index</h1>
 
@@ -32,38 +40,41 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Shipping)
+        @foreach (var shipping in Model.Shipping)
         {
-            
+
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => shipping.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    @Html.DisplayFor(modelItem => shipping.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.dateTime)
+                    @Html.DisplayFor(modelItem => shipping.dateTime)
                 </td>
 
-                @if(@item.Finished==true)
+                @if (@shipping.Finished == true)
                 {
-                <td>
-                    Finished
-                </td>
+                    <td>
+                        Finished
+                    </td>
                 }
                 else
                 {
-                <td>
-                    Open
-                </td>
+                    <td>
+                        Open
+                    </td>
                 }
-                
+
                 <td>
-                    <a asp-page="../ShippingProducts/Create" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (shipping.Finished == false)
+                    {
+                        <a asp-page="../ShippingProducts/Create" asp-route-id="@shipping.Id">Add Products</a>
+                    }
+                    |<a asp-page="./Edit" asp-route-id="@shipping.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@shipping.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@shipping.Id">Delete</a>
                 </td>
             </tr>
         }

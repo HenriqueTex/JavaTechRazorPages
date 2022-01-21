@@ -28,8 +28,7 @@ namespace JavaTechPages.Pages.Shippings
 
         public async Task OnGetAsync()
         {
-            Shipping = await _context.Shippings.ToListAsync();
-            
+            Shipping = await _context.Shippings.Include(s=>s.ShippingProduct).ToListAsync();            
             
         }
         public async Task<IActionResult> OnPostAsync()

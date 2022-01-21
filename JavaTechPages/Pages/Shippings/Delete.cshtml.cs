@@ -22,6 +22,8 @@ namespace JavaTechPages.Pages.Shippings
 
         [BindProperty]
         public Shipping Shipping { get; set; }
+        [BindProperty]
+        public ICollection<ShippingProduct> ShippingProducts { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,6 +33,8 @@ namespace JavaTechPages.Pages.Shippings
             }
 
             Shipping = await _context.Shippings.FirstOrDefaultAsync(m => m.Id == id);
+            ShippingProducts= _context.ShippingProducts.Include(s=>s.Product).Where(s=>s.ShippingId==id).ToList();
+
 
             if (Shipping == null)
             {
@@ -46,14 +50,33 @@ namespace JavaTechPages.Pages.Shippings
             {
                 return NotFound();
             }
+            ShippingProducts = _context.ShippingProducts.Include(s => s.Product).Where(s => s.ShippingId == id).ToList();
+            Shipping = await _context.Shippings.FirstOrDefaultAsync(m => m.Id == id);
+            foreach (var products in ShippingProducts)
+            {
+                var product = _context.Products.FirstOrDefault(s => s.Id == products.ProductId);
+                if(product.Quantity < products.Quantity)
+                {
+                    TempData["Error"] += "The product " + product.Name + " já tem saidas registradas";
+                }
+                product.Quantity -= products.Quantity;
+                _context.ShippingProducts.Remove(products);
+            }
 
+            if (TempData["Error"] != null)
+            {
+                return Page();
+            }
+            
             Shipping = await _context.Shippings.FindAsync(id);
 
-            if (Shipping != null)
+            if (Shipping == null)
             {
-                _context.Shippings.Remove(Shipping);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+            _context.Shippings.Remove(Shipping);
+            await _context.SaveChangesAsync();
+            TempData["success"] = "Shipping and related products excluded sucessfully deleted";
 
             return RedirectToPage("./Index");
         }

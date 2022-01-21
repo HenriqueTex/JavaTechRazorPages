@@ -5,7 +5,14 @@
     ViewData["Title"] = "Delete";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-
+@if (TempData["Error"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["success"]');    
+    </script>
+}
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -42,6 +49,22 @@
                 </dd>
                 }
     </dl>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     <table class="table" table-striped table-dark>
+        <thead class="thead-dark">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.ShippingProducts)
+        {
+            <tr>
+                <th>@item.Product.Name</th>
+                <th>@item.Quantity</th>
+            </tr>
+        }
+        </table>
     
     <form method="post">
         <input type="hidden" asp-for="Shipping.Id" />

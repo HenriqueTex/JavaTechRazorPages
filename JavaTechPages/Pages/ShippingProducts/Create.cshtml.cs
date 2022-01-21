@@ -39,7 +39,7 @@ namespace JavaTechPages.Pages.ShippingProducts
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAddProductAsync()
         {
             
             if (!ModelState.IsValid)
@@ -47,10 +47,41 @@ namespace JavaTechPages.Pages.ShippingProducts
                 return Page();
             }
 
-            _context.ShippingProducts.Add(ShippingProduct);
-            await _context.SaveChangesAsync();
+            var products = _context.ShippingProducts
+                .Where(s=>s.ShippingId==ShippingProduct.ShippingId)
+                .FirstOrDefault(s=>s.ProductId==ShippingProduct.ProductId);
             
+            if (products==null)
+            {
+                _context.ShippingProducts.Add(ShippingProduct);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Create", new { id = ShippingProduct.ShippingId });
+            }
+            
+            products.Quantity+=ShippingProduct.Quantity;
+            await _context.SaveChangesAsync();
             return RedirectToPage("./Create", new {id= ShippingProduct.ShippingId });
+        }
+
+        public async Task<IActionResult> OnPostCloseShippingAsync()
+        {
+            var shipping=_context.Shippings.Include(s=>s.ShippingProduct).FirstOrDefault(s => s.Id == ShippingProduct.ShippingId);
+            shipping.Finished = true;
+            foreach(var item in shipping.ShippingProduct)
+            {
+                _context.Products.FirstOrDefault(s => s.Id == item.ProductId).Quantity += item.Quantity;
+            }
+            
+            await _context.SaveChangesAsync();
+            return RedirectToPage("../Shippings/Index");
+        }
+        public async Task<IActionResult> OnPostRemoveProductAsync(int? id)
+        {
+            var productRemove = _context.ShippingProducts.FirstOrDefault(s => s.Id == id);
+            _context.Remove(productRemove);
+
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Create", new { id = ShippingProduct.ShippingId });
         }
     }
 }
