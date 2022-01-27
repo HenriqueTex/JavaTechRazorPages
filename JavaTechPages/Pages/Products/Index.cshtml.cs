@@ -29,5 +29,6 @@ namespace JavaTechPages.Pages.Products
             ProductImages = await _context.ProductImages.ToListAsync();
 
         }
+        
     }
 }

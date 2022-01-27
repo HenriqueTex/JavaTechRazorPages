@@ -30,6 +30,7 @@ namespace JavaTechPages.Models
         public virtual ProductImage? ProductImage { get; set; }
         
         public virtual List<ShippingProduct>? ShippingProduct { get; set; }
+        public virtual List<ProductUser>? ProductUser { get; set; }
 
     }
 }
