@@ -15,5 +15,6 @@ namespace JavaTechPages.Data
         public DbSet<JavaTechPages.Models.Shipping> Shippings { get; set; }
         public DbSet<JavaTechPages.Models.ShippingProduct> ShippingProducts { get; set; }
         public DbSet<JavaTechPages.Models.ProductUser> productUsers { get; set; }
+        public DbSet<JavaTechPages.Models.Whitdrawal> Whitdrawals { get; set; }
     }
 }

@@ -1,0 +1,41 @@
+﻿@page
+@model JavaTechPages.Pages.MyProducts.IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+}
+<head>
+    <!-- Importando o css do bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+<form method="post"> 
+    <div class="row">
+        @foreach (var item in Model.ProductUser)
+        {
+            <div class="col-sm-6">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@("~/Image/"+ item.Product.ProductImage.ImageName)" asp-append-version="true" width="200px" height="250px">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Product.Name</h5>
+                        <p class="card-text">Quantidade @item.Quantity</p>
+                        <div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block btn-sm" asp-route-id="@item.Id" >Whitdrawal</button>
+                        </div>  
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</form>
+}
+

@@ -70,10 +70,14 @@
                 <td>
                     @*|<a asp-page="./Edit" asp-route-id="@shipping.Id">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@shipping.Id">Details</a> |*@
-                    <a asp-page="./Delete" asp-route-id="@shipping.Id">Details</a>
+                    <a type="button" class="btn btn-warning btn-sm" asp-page="./Delete" asp-route-id="@shipping.Id">Details</a>
                     @if (shipping.Finished == false)
                     {
-                        <a asp-page="../ShippingProducts/Create" asp-route-id="@shipping.Id">Add Products</a>
+                        <a type="button" class="btn btn-success btn-sm" asp-page="../ShippingProducts/Create" asp-route-id="@shipping.Id">Add Products</a>
+                    }
+                    else
+                    {
+                         <button type="submit" class="btn btn-success btn-sm"  asp-page="../ShippingProducts/Create" asp-route-id="@shipping.Id" disabled>Add Products</button>
                     }
                 </td>
             </tr>

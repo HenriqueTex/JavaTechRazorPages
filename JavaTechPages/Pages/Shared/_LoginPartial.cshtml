@@ -3,11 +3,7 @@
 @inject UserManager<IdentityUser> UserManager
 
 
-<ul class="navbar-nav flex-grow-1">
-    <li>
-        <a class="nav-link text-dark ml" asp-area="" asp-page="/Shippings/Index">Shippings</a>
-    </li>
-</ul>
+
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {

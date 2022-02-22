@@ -12,6 +12,7 @@ namespace JavaTechPages.Models
         public int ProductId { get; set; }
         public virtual Product? Product { get; set; }
         public virtual IdentityUser? User  { get; set; }
+        public virtual ICollection<Whitdrawal> Whitdrawals { get; set; }
 
     }
 }
